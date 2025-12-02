@@ -14,6 +14,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Login to azure
+        uses: azure/login@v2  
+        with: 
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: KPZ-10-WebApp
+          images: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest 
+          
       - name: Checkout
         uses: actions/checkout@v4
 
